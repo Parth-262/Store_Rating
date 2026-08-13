@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Store, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Store, Lock, Mail, ArrowRight, ShieldCheck, User, Store as StoreIcon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage({ onNavigateSignup }) {
@@ -21,6 +21,13 @@ export default function LoginPage({ onNavigateSignup }) {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // Quick fill helper for testing demo credentials
+  const fillCredentials = (demoEmail, demoPassword) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+    setError('');
   };
 
   return (
@@ -56,7 +63,7 @@ export default function LoginPage({ onNavigateSignup }) {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Email Address</label>
             <div style={{ position: 'relative' }}>
@@ -77,7 +84,6 @@ export default function LoginPage({ onNavigateSignup }) {
                 placeholder="user@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                autoComplete="off"
                 required
               />
             </div>
@@ -103,7 +109,6 @@ export default function LoginPage({ onNavigateSignup }) {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                autoComplete="new-password"
                 required
               />
             </div>
@@ -143,6 +148,57 @@ export default function LoginPage({ onNavigateSignup }) {
           >
             Sign up here (User / Store Owner)
           </button>
+        </div>
+
+        {/* Quick Demo Login Presets */}
+        <div
+          style={{
+            marginTop: '2rem',
+            padding: '1rem',
+            backgroundColor: 'rgba(15, 23, 42, 0.6)',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border-color)'
+          }}
+        >
+          <div
+            style={{
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: 'var(--text-subtle)',
+              marginBottom: '0.75rem',
+              textAlign: 'center'
+            }}
+          >
+            Quick Demo Logins (Click to autofill)
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              style={{ fontSize: '0.75rem', padding: '0.4rem' }}
+              onClick={() => fillCredentials('admin@storerating.com', 'Pass@123456')}
+            >
+              <ShieldCheck size={14} color="var(--accent-rose)" /> Admin
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              style={{ fontSize: '0.75rem', padding: '0.4rem' }}
+              onClick={() => fillCredentials('owner1@storerating.com', 'Pass@123456')}
+            >
+              <StoreIcon size={14} color="var(--accent-sky)" /> Owner
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              style={{ fontSize: '0.75rem', padding: '0.4rem' }}
+              onClick={() => fillCredentials('john.user@storerating.com', 'Pass@123456')}
+            >
+              <User size={14} color="var(--accent-emerald)" /> User
+            </button>
+          </div>
         </div>
       </div>
     </div>
