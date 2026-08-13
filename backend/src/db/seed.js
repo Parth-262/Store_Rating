@@ -14,7 +14,7 @@ export async function seedDatabase() {
   await db.exec('DELETE FROM users;');
   await db.exec('DELETE FROM sqlite_sequence;');
 
-  // Insert Users (All names are between 20 and 60 characters)
+  // Insert Users
   const adminResult = await db.run(
     `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
     [
@@ -26,57 +26,13 @@ export async function seedDatabase() {
     ]
   );
 
-  const owner1Result = await db.run(
+  const parthResult = await db.run(
     `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
     [
-      'Owner One Store Manager',
-      'owner1@storerating.com',
+      'Parthjigarkumarjoshi182621',
+      'parth@gmail.com',
       defaultPassword,
-      '456 Retail Boulevard, New York, NY 10001',
-      'STORE_OWNER'
-    ]
-  );
-
-  const owner2Result = await db.run(
-    `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
-    [
-      'Owner Two Retail Partner',
-      'owner2@storerating.com',
-      defaultPassword,
-      '789 Commercial Avenue, Austin, TX 78701',
-      'STORE_OWNER'
-    ]
-  );
-
-  const user1Result = await db.run(
-    `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
-    [
-      'Johnathan Dough User Account',
-      'john.user@storerating.com',
-      defaultPassword,
-      '123 Maple Street, Apartment 4B, Chicago, IL 60601',
-      'USER'
-    ]
-  );
-
-  const user2Result = await db.run(
-    `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
-    [
-      'Jane Smith Registered User',
-      'jane.user@storerating.com',
-      defaultPassword,
-      '555 Pine Lane, Seattle, WA 98101',
-      'USER'
-    ]
-  );
-
-  const user3Result = await db.run(
-    `INSERT INTO users (name, email, password, address, role) VALUES (?, ?, ?, ?, ?)`,
-    [
-      'Alex Turner Customer Account',
-      'alex.user@storerating.com',
-      defaultPassword,
-      '888 Oak Avenue, Denver, CO 80202',
+      'Navsari, Gujarat, India',
       'USER'
     ]
   );
@@ -88,7 +44,7 @@ export async function seedDatabase() {
       'Tech Gadgets Superstore',
       'contact@techgadgets.com',
       '456 Retail Boulevard, Suite A, New York, NY 10001',
-      owner1Result.lastID
+      null
     ]
   );
 
@@ -98,7 +54,7 @@ export async function seedDatabase() {
       'Green Grocery Organic Mart',
       'info@greengrocery.com',
       '789 Commercial Avenue, Austin, TX 78701',
-      owner2Result.lastID
+      null
     ]
   );
 
@@ -108,48 +64,24 @@ export async function seedDatabase() {
       'Urban Books & Café Corner',
       'hello@urbanbooks.com',
       '321 Broadway Street, Seattle, WA 98102',
-      null // Unassigned owner for testing admin store management
+      null
     ]
   );
 
-  // Insert Ratings
-  // Store 1 Ratings
+  // Insert Ratings for Parth
   await db.run(
     `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user1Result.lastID, store1Result.lastID, 5]
+    [parthResult.lastID, store1Result.lastID, 5]
   );
   await db.run(
     `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user2Result.lastID, store1Result.lastID, 4]
-  );
-  await db.run(
-    `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user3Result.lastID, store1Result.lastID, 4]
-  );
-
-  // Store 2 Ratings
-  await db.run(
-    `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user1Result.lastID, store2Result.lastID, 3]
-  );
-  await db.run(
-    `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user2Result.lastID, store2Result.lastID, 5]
-  );
-
-  // Store 3 Ratings
-  await db.run(
-    `INSERT INTO ratings (user_id, store_id, rating) VALUES (?, ?, ?)`,
-    [user3Result.lastID, store3Result.lastID, 2]
+    [parthResult.lastID, store2Result.lastID, 4]
   );
 
   console.log('Database seeded successfully!');
-  console.log('Demo Credentials (Password for all: Pass@123456):');
+  console.log('Credentials (Password for all: Pass@123456):');
   console.log('- Admin: admin@storerating.com');
-  console.log('- Store Owner 1: owner1@storerating.com');
-  console.log('- Store Owner 2: owner2@storerating.com');
-  console.log('- Normal User 1: john.user@storerating.com');
-  console.log('- Normal User 2: jane.user@storerating.com');
+  console.log('- Parth: parth@gmail.com');
 }
 
 // Run if called directly
